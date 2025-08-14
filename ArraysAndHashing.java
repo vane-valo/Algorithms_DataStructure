@@ -16,6 +16,14 @@ public class ArraysAndHashing{
         System.out.println("First String: " + s +
         " String: " + t +
         " Solution: " + Solutions.isAnagram(s, t));
+
+        int[] nums = {3,4,5,6};
+        int target = 10;
+
+        System.out.println("\nTwo Sums");
+        System.out.println("Array num: " + Arrays.toString(nums) +
+        " Target: " + target +
+        " Solution: " + Arrays.toString(Solutions.twoSum(nums, target)));
     }
         
     public class Solutions {
@@ -47,6 +55,23 @@ public class ArraysAndHashing{
             Arrays.sort(charArrayT);
             
             return Arrays.equals(charArrayS, charArrayT);
+        }
+
+        public static int[] twoSum(int[] nums, int target){
+            /*Given an array of integers nums and an integer target, return the indices i and j such that 
+            nums[i] + nums[j] == target and i != j.*/
+
+            int[] result = new int[2];
+
+            for (int i = 0; i < nums.length; i++) {
+                for (int j = 1; j < nums.length; j++) {
+                    if (nums[i] + nums[j] == target) {
+                        result[0] = j;
+                        result[1] = i;
+                    }
+                }
+            }
+            return result;
         }
 
     }
