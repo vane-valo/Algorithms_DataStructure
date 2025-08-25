@@ -29,91 +29,47 @@ public class ArraysAndHashing{
         " Solution: " + Arrays.toString(SolutionsHash.twoSum(nums, target)));
     }
         
-    public class Solutions {
-        public static boolean hasDuplicate(int[] nums) {
-            /*Given an integer array nums, return true if any value appears more than once in the array,
-            otherwise return false.*/
-
-            Arrays.sort(nums);
-
-            for (int i = 1; i < nums.length; i++) {
-                if (nums[i] == nums[i-1]) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static boolean isAnagram(String s, String t) {
-            /*Given two strings s and t, return true if the two strings are anagrams of each other,
-            otherwise return false.*/
-
-            if (s.length() != t.length()) {
-                return false;
-            }
-
-            char[] charArrayS = s.toCharArray();
-            char[] charArrayT = t.toCharArray();
-            Arrays.sort(charArrayS);
-            Arrays.sort(charArrayT);
-            
-            return Arrays.equals(charArrayS, charArrayT);
-        }
-
-        public static int[] twoSum(int[] nums, int target){
-            /*Given an array of integers nums and an integer target, return the indices i and j such that 
-            nums[i] + nums[j] == target and i != j.*/
-
-            int[] result = new int[2];
-
-            for (int i = 0; i < nums.length; i++) {
-                for (int j = i + 1; j < nums.length; j++) {
-                    if (nums[i] + nums[j] == target) {
-                        result[0] = j;
-                        result[1] = i;
-                    }
-                }
-            }
-            return result;
-        }
-
-    }
-
-
     public class SolutionsHash {
         public static boolean hasDuplicate(int[] nums) {
             /*Given an integer array nums, return true if any value appears more than once in the array,
             otherwise return false.*/
 
-            Set<Integer> numSet = new HashSet<>();
+            //Create HashSet to store elements from the array
+            Set<Integer> numSet = new HashSet<>(); 
 
+            //Itirate through each element in the array
             for (int num : nums) {
+                //Check if the element is already in the HashSet
                 if (numSet.contains(num)) {
-                    return true;
+                    return true; //Duplicate found
                 }
+                //Add Element through the HashSet
                 numSet.add(num);
             }
-            return false;
+            return false; //No duplicates found
         }
 
         public static boolean isAnagram(String s, String t) {
             /*Given two strings s and t, return true if the two strings are anagrams of each other,
             otherwise return false.*/
 
+            //Validate if the strings are the same length
             if (s.length() != t.length()) {
                 return false;
             }
 
+            //Create a HashMap for each string
             HashMap<Character, Integer> countS = new HashMap<>();
             HashMap<Character, Integer> countT = new HashMap<>();
 
+            //Itiriate through each character from the s string since they are the same length
             for (int i = 0; i < s.length(); i++) {
+                //Add each character to the corresponding HashMap
                 countS.put(s.charAt(i), countS.getOrDefault(s.charAt(i), 0) + 1);
                 countT.put(t.charAt(i), countT.getOrDefault(t.charAt(i), 0) + 1);
             }
-            // System.out.println(countS);
-            // System.out.println(countT);
-            return countS.equals(countT);
+            
+            return countS.equals(countT); //Return true if they are equal
         }
 
         public static int[] twoSum(int[] nums, int target){
