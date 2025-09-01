@@ -1,7 +1,10 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ArraysAndHashing{
@@ -27,6 +30,12 @@ public class ArraysAndHashing{
         System.out.println("Array num: " + Arrays.toString(nums) +
         " Target: " + target +
         " Solution: " + Arrays.toString(SolutionsHash.twoSum(nums, target)));
+
+        String[] groupAnagramsString = {"act","pots","tops","cat","stop","hat"};
+
+        System.out.println("\nGroup Anagrams");
+        System.out.println("Array string: " + Arrays.toString(groupAnagramsString) +
+        " Solution: " + SolutionsHashMedium.groupAnagrams(groupAnagramsString));
     }
         
     public class SolutionsHash {
@@ -81,21 +90,36 @@ public class ArraysAndHashing{
             for (int i = 0; i < nums.length; i++) {
                 indices.put(nums[i], i);
             }
-            System.out.println("Map: " + indices);
 
             for (int i = 0; i < nums.length; i++) {
                 int diff = target - nums[i];
-
-                System.out.println("Direfencia: " + target + " - " + nums[i] + " = " + diff);
-                System.out.println("Contains: " + indices.containsKey(diff));
-                System.out.println("Get: " + indices.get(diff));
-                System.out.println("i: " + i);
 
                 if (indices.containsKey(diff) && indices.get(diff) != i) {
                     return new int[]{i, indices.get(diff)};
                 }
             }
             return new int[0];
+        }
+    }
+
+    public class SolutionsHashMedium{
+        public static List<List<String>> groupAnagrams(String[] strs) {
+            /*Given an array of strings strs, group all anagrams together into sublists. 
+            You may return the output in any order.*/
+
+            Map<String, List<String>> result = new HashMap<>();
+
+            for (String s : strs) {
+                int[] count = new int[26];
+                for (Character c : s.toCharArray()) {
+                    count[c - 'a']++;
+                }
+
+                String hashMapKey = Arrays.toString(count);
+                result.putIfAbsent(hashMapKey, new ArrayList<>());
+                result.get(hashMapKey).add(s);
+            }
+            return new ArrayList<>(result.values());
         }
     }
 }
